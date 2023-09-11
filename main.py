@@ -22,16 +22,16 @@ if response.status_code == 200:
     if target_element:
         # 提取元素的文本內容
         price = target_element.text.strip()
-
+        tg_obj=tool.TelegramBot(token=Setting.tg_token,chat_id=Setting.chat_id,)
         # 列印價格
         print("今日價格:", price)
         pattern=r"\w+"
         price_int=re.search(pattern,price).group()
-
+        tg_obj=tool.TelegramBot(token=Setting.tg_token,chat_id=Setting.chat_id,)
+        tg_obj.send_message(f"今日價格{price}")
         if int(price_int) < 395:
             print(f"今日有特惠價:{price}")
-            tool.TelegramBot(token=Setting.tg_token,chat_id=Setting.chat_id,)
-
+            tg_obj.send_message(f"今日有特惠價:{price}")
     else:
         print("找不到目標元素")
 else:
